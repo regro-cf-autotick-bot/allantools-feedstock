@@ -6,12 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c4380c74de834ac869aefc899038e784ef1dd396370be89d6836abffbe484289
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
@@ -19,15 +19,17 @@ requirements:
     - numpydoc
     - pytest-runner
     - setuptools
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - hatchling
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - numpy
     - scipy
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - allantools
     - allantools.dataset
